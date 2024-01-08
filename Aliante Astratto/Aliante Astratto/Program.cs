@@ -1,7 +1,5 @@
 ﻿using Aliante_Astratto.Aliante.Ruota;
 using Aliante_Astratto.Aliante;
-using System;
-using System.Collections.Generic;
 using static System.Console;
 
 namespace Aliante_Astratto
@@ -10,6 +8,20 @@ namespace Aliante_Astratto
 	{
 		static void Main()
 		{
+			WriteLine("Inserimento automatico? (y)es/(Any)No");
+			if(ReadKey(true).KeyChar == 'y')
+			{
+				Aliante.Aliante auto = new Aliante.Aliante(new Ala(10f,10f), new Fusoliera("aria",10f), new Coda(10f), new Ruota(new Cerchione(10f,"aria"),new Gomma(10f,10f,10f)));
+
+				WriteLine("Inserire errore? (y)es/(Any)No");
+				if(ReadKey(true).KeyChar == 'y')
+					auto.Add(new Gomma(10f, 10f, 10f));
+
+				WriteLine("descrizione\n" + auto.Details());
+				WriteLine("\nPrezzo\n" + auto.Price().ToString("C") + "(euro)");
+				return;
+			}
+
 			float ChechInput(string displayText)
 			{
 				WriteLine(displayText);
@@ -25,6 +37,8 @@ namespace Aliante_Astratto
 				WriteLine(displayText);
 				return ReadLine();
 			}
+
+			Clear();
 
 			Ala ala = new Ala(
 				ChechInput("COSTRUIAMO UN ALIANTE INSIEME!\n\nCominciamo dalle ali, che saranno ovviamente due uguali.\n" +

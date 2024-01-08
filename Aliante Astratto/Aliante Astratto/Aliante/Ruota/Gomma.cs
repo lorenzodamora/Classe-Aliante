@@ -54,5 +54,7 @@
 		public override string GetChild(int ind) => throw new System.NotImplementedException();
 
 		public override bool IsComposite() => false;
+
+		public override Pezzi MyEnum() => Pezzi.Gomma;
 	}
 }

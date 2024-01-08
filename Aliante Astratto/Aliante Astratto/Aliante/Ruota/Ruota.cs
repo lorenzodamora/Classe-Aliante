@@ -50,5 +50,8 @@
 		public override void Remove(int ind) => throw new System.NotImplementedException();
 
 		public override string GetChild(int ind) => throw new System.NotImplementedException();
+
+		public override Pezzi MyEnum() => Pezzi.Ruota;
+
 	}
 }

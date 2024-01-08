@@ -35,11 +35,31 @@ namespace Aliante_Astratto.Aliante
 		public override string Details()
 		{
 			string ret = "";
-			for(int i = 0; i < Componenti.Count; ++i)
+			Dictionary<Pezzi, bool> check = new Dictionary<Pezzi, bool>
 			{
-				if(Componenti[i].IsComposite()) continue;
-				ret += Componenti[i].Details() + "\r\n";
+				{Pezzi.Ala, false},
+				{Pezzi.Fusoliera, false},
+				{Pezzi.Coda, false},
+				{Pezzi.Ruota, false},
+			};
+			try
+			{
+				for(int i = 0; i < Componenti.Count; ++i)
+				{
+					Pezzi pezzo = Componenti[i].MyEnum();
+					if(check[pezzo]) continue;
+					ret += Componenti[i].Details() + "\r\n";
+					check[pezzo] = true;
+				}
 			}
+			catch(KeyNotFoundException ex)
+			{
+				System.Console.WriteLine("\nInserito componente non valido nell'aliante\nStampare l'eccezione generata? (y)es/(Any)No");
+				if(System.Console.ReadKey(true).KeyChar == 'y')
+					throw ex;
+				System.Environment.Exit(-1);
+			}
+
 			return ret;
 		}
 
@@ -55,5 +75,7 @@ namespace Aliante_Astratto.Aliante
 		public override void Remove(int ind) => Componenti.RemoveAt(ind);
 
 		public override string GetChild(int ind) => Componenti[ind].ToString();
+
+		public override Pezzi MyEnum() => Pezzi.Aliante;
 	}
 }
